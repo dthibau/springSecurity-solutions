@@ -1,15 +1,21 @@
 spring:
   jpa:
     show-sql: false
-
+    
   security:
     user:
-      password: secret  
+      password: secret
 
+appli:
+  jwt:
+    secretKey: t3fJ6MlW5FjioNiCoaW8z814ezL38dt3fJ6MlW5FjioNiCoaW8z814ezL38dt3fJ6MlW5FjioNiCoaW8z814ezL38d
+    validity: 1000
+    rememberMe: 1000
+    
 logging:
   level:
     org.springframework.security: DEBUG
-
+  
 management:
   endpoints:
     web:

@@ -14,8 +14,8 @@
 	href="/webjars/bootstrap/4.6.2/css/bootstrap.min.css">
 		</head>
 	</div>
-	
-	
+
+
 	<div th:fragment="navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="#">Catalogue Produit</a>
@@ -50,9 +50,16 @@
 						placeholder="Rechercher" aria-label="Search">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
 				</form>
-				<div sec:authorize="isAuthenticated()">Authentifié comme <span sec:authentication="name"></span><br/>
-				Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span><br/>
-				<a class="nav-link" href="/logout">Logout</a></div>
+				<ul class="navbar-nav my-2 my-lg-0">
+					<li class="nav-item dropdown" sec:authorize="isAuthenticated()"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false" sec:authentication="name"> LoginName</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="nav-link" href="/logout">Logout</a>
+							
+						</div></li>
+				</ul>
 			</div>
 		</nav>
 	</div>
