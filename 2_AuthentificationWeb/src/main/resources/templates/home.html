@@ -9,7 +9,7 @@
 <div class="container py-5">
 	<div class="row">
 		<div class="col">
-			<div class="jumbotron">
+			<div sec:authorize="hasRole('MANAGER')" class="jumbotron" >
 				<h1 class="display-4">Gestion des fournisseurs</h1>
 				<p class="lead">Fournisseurs agréés.</p>
 				<hr class="my-4">

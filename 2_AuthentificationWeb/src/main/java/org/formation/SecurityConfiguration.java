@@ -1,8 +1,15 @@
 package org.formation;
 
+import java.util.Locale;
+
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+<<<<<<< HEAD
 import org.springframework.security.config.Customizer;
+=======
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+>>>>>>> 7d6c542 (Thymeleaf et localisation)
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -31,7 +38,7 @@ public class SecurityConfiguration {
 				.sessionManagement(sm -> sm.maximumSessions(2))
 				.logout(lo -> lo.invalidateHttpSession(true).logoutSuccessUrl("http://www.plb.fr"))
 				.csrf(csrf -> csrf.disable());
-		
+
 		return http.build();
 	}
 
@@ -53,5 +60,13 @@ public class SecurityConfiguration {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public MessageSource messageSource() {
+		Locale.setDefault(Locale.FRENCH);
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.addBasenames("classpath:org/springframework/security/messages");
+		return messageSource;
 	}
 }
