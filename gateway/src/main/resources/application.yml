@@ -13,7 +13,22 @@ spring:
           filters:
             - RewritePath=/order/?(?<remaining>.*), /$\{remaining}
 
-      
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8089/realms/StoreRealm/protocol/openid-connect/token
+            authorization-uri: http://localhost:8089/realms/StoreRealm/protocol/openid-connect/auth
+            user-info-uri: http://localhost:8089/realms/StoreRealm/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          store-app:
+            provider: keycloak
+            client-id: store-app
+            client-secret: 57abb4f6-5130-4c73-9545-6d377dd947cf
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"      
 
 management:
   endpoints:
