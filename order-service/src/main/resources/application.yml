@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: order-service
+server:
+  port: 8082
+        
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - env
+        - beans
+        - health
+        - metrics
+        - httptrace
+        - refresh
+
+  endpoint:
+    health:
+      show-details: always
+    
