@@ -3,6 +3,7 @@ package org.formation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.session.SessionRegistry;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
 	@Bean
@@ -27,9 +29,9 @@ public class SecurityConfiguration {
 		})
 			.formLogin(Customizer.withDefaults())
 				.sessionManagement(sm -> sm.maximumSessions(2))
-				.logout(lo -> lo.invalidateHttpSession(true).logoutSuccessUrl("http://www.plb.fr"));
-
-
+				.logout(lo -> lo.invalidateHttpSession(true).logoutSuccessUrl("http://www.plb.fr"))
+				.csrf(csrf -> csrf.disable());
+		
 		return http.build();
 	}
 

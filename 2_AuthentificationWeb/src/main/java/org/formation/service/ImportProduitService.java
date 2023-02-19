@@ -12,9 +12,11 @@ import org.formation.model.FournisseurRepository;
 import org.formation.model.Produit;
 import org.formation.model.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
+@PreAuthorize("hasRole('ROLE_MANAGER')")
 public class ImportProduitService {
 
 	@Autowired
