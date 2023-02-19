@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -65,8 +64,10 @@ public class SecurityConfiguration {
 
 		http.securityMatcher(new RegexRequestMatcher("^((?!/api).)*$", null))
 						.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-				.oauth2Login(Customizer.withDefaults())
-				.formLogin(Customizer.withDefaults());
+				.oauth2Login(oAuth -> oAuth.loginPage("/oauth_login").permitAll().defaultSuccessUrl("/"))
+				.formLogin(fl -> fl.loginPage("/oauth_login").permitAll())
+				.logout(Customizer.withDefaults());
+
 
 		return http.build();
 	}
