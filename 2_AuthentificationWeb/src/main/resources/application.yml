@@ -2,7 +2,10 @@ spring:
   jpa:
     show-sql: false
 
-  
+  security:
+    user:
+      password: secret  
+
 management:
   endpoints:
     web:
