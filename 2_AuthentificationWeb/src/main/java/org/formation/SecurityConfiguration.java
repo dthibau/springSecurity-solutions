@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.formation.jwt.JWTFilter;
 import org.formation.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,7 @@ public class SecurityConfiguration {
 
 	@Autowired
 	TokenProvider tokenProvider;
-	
+
 	@Bean
 	public SecurityFilterChain restFilterChain(HttpSecurity http) throws Exception {
 		http.securityMatcher(new AntPathRequestMatcher("/api/**"))
@@ -45,7 +46,7 @@ public class SecurityConfiguration {
 
 		return http.build();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		/*http.authorizeHttpRequests(auth -> {
@@ -68,8 +69,10 @@ public class SecurityConfiguration {
 				.formLogin(fl -> fl.loginPage("/oauth_login").permitAll())
 				.logout(Customizer.withDefaults());
 
+
 		return http.build();
 	}
+
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		return (web) -> web.ignoring().requestMatchers("/resources/**", "/publics/**","/webjars/*");
@@ -81,6 +84,11 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
+	public InMemoryAuditEventRepository repository() {
+		return new InMemoryAuditEventRepository();
+	}
+
+	@Bean
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 		return new HttpSessionEventPublisher();
 	}
@@ -89,10 +97,13 @@ public class SecurityConfiguration {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-	    return authenticationConfiguration.getAuthenticationManager();
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
+
 	@Bean
 	public MessageSource messageSource() {
 		Locale.setDefault(Locale.FRENCH);
