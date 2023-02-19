@@ -16,6 +16,8 @@ public class SecurityConfiguration {
 	      .and()
 	      .formLogin()
 	      .and()
+	      .rememberMe().alwaysRemember(true)
+	      .and()
 	      .logout()
 	      .invalidateHttpSession(true)
 	      .logoutSuccessUrl("http://www.plb.fr");
