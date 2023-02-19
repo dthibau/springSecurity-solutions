@@ -64,10 +64,9 @@ public class SecurityConfiguration {
 
 		http.securityMatcher(new RegexRequestMatcher("^((?!/api).)*$", null))
 						.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-				.oauth2Login(oAuth -> oAuth.loginPage("/oauth_login").permitAll().defaultSuccessUrl("/"))
+				.oauth2Login(oAuth -> oAuth.loginPage("/oauth_login").permitAll().defaultSuccessUrl("/loginSuccess"))
 				.formLogin(fl -> fl.loginPage("/oauth_login").permitAll())
 				.logout(Customizer.withDefaults());
-
 
 		return http.build();
 	}
