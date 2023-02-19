@@ -5,7 +5,12 @@ spring:
   security:
     user:
       password: secret
-
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 592478762979-dbvf4lmk5lgap8k3vo7vvgkj3vp9f9h1.apps.googleusercontent.com
+            client-secret: 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
 appli:
   jwt:
     secretKey: t3fJ6MlW5FjioNiCoaW8z814ezL38dt3fJ6MlW5FjioNiCoaW8z814ezL38dt3fJ6MlW5FjioNiCoaW8z814ezL38d

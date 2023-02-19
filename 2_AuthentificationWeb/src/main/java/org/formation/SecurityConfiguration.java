@@ -25,6 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
@@ -34,7 +35,6 @@ public class SecurityConfiguration {
 	TokenProvider tokenProvider;
 	
 	@Bean
-	@Order(1)
 	public SecurityFilterChain restFilterChain(HttpSecurity http) throws Exception {
 		http.securityMatcher(new AntPathRequestMatcher("/api/**"))
 			.authorizeHttpRequests(auth -> auth.requestMatchers("/api/authenticate").permitAll()
@@ -49,7 +49,7 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> {
+		/*http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/fournisseurs*").hasRole("MANAGER")
 					.requestMatchers("/produits*").hasAnyRole("PRODUCT_MANAGER", "MANAGER")
 					.requestMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
@@ -60,8 +60,13 @@ public class SecurityConfiguration {
 			.formLogin(Customizer.withDefaults())
 				.sessionManagement(sm -> sm.maximumSessions(2))
 				.logout(lo -> lo.invalidateHttpSession(true).logoutSuccessUrl("http://www.plb.fr"))
-				.csrf(csrf -> csrf.disable());
+				.csrf(csrf -> csrf.disable());*/
 
+
+		http.securityMatcher(new RegexRequestMatcher("^((?!/api).)*$", null))
+						.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+				.oauth2Login(Customizer.withDefaults())
+				.formLogin(Customizer.withDefaults());
 
 		return http.build();
 	}
