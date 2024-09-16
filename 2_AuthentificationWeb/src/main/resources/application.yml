@@ -5,6 +5,21 @@ spring:
   security:
     user:
       password: secret
+    saml2:
+      relyingparty:
+        registration:
+          product-app:
+            entity-id: "product-app"
+            signing:
+              credentials:
+                - private-key-location: classpath:config/rp-key.key
+                  certificate-location: classpath:config/rp-certificate.crt
+            singlelogout:
+              binding: POST
+              response-url: "{baseUrl}/logout/saml2/slo"
+            assertingparty:
+              metadata-uri: "http://localhost:8081/realms/product-realm/protocol/saml/descriptor"
+
 
 appli:
   jwt:

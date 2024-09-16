@@ -1,10 +1,8 @@
 package org.formation.jwt;
 
 
-import javax.validation.Valid;
 
-import org.formation.jwt.JWTConfigurer;
-import org.formation.jwt.TokenProvider;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
